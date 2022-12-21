@@ -1,0 +1,27 @@
+{
+  "name": "sol-the-bard-bot",
+  "version": "1.0.0",
+  "description": "A discord music-bot for personal use",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "music",
+    "bot"
+  ],
+  "author": "Shizuke136",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.9.0",
+    "@discordjs/voice": "^0.14.0",
+    "@distube/yt-dlp": "^1.1.3",
+    "discord.js": "^14.7.1",
+    "distube": "^4.0.4",
+    "ffmpeg": "^0.0.4",
+    "fluent-ffmpeg": "^2.1.2",
+    "sodium": "^3.0.2",
+    "ytdl-core": "^4.11.2"
+  }
+}
