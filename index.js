@@ -34,9 +34,9 @@ client.emotes = config.emoji
 const prefix = config.prefix
 
 fs.readdir('./commands/', (err, files) => {
-  if (err) return console.log('Could not find any commands!')
+  if (err) return console.log('Nenhum comando encontrado!')
   const jsFiles = files.filter(f => f.split('.').pop() === 'js')
-  if (jsFiles.length <= 0) return console.log('Could not find any commands!')
+  if (jsFiles.length <= 0) return console.log('Não conseguimos encontrar nenhum comando!')
   jsFiles.forEach(file => {
     const cmd = require(`./commands/${file}`)
     //console.log(`Loaded ${file}`)
@@ -46,7 +46,7 @@ fs.readdir('./commands/', (err, files) => {
 })
 
 client.on('ready', () => {
-  console.log(`${client.user.tag} is ready to play music.`)
+  console.log(`${client.user.tag} está pronto para tocar música!.`)
 })
 
 client.on('messageCreate', async message => {
@@ -60,7 +60,7 @@ client.on('messageCreate', async message => {
   if (!cmd) return
 
   if (cmd.inVoiceChannel && !message.member.voice.channel) {
-    return message.channel.send(`${client.emotes.error} | You must be in a voice channel!`)
+    return message.channel.send(`${client.emotes.error} | Você precisa estar em um canal de voz!`)
   }
   try {
     cmd.run(client, message, args)
@@ -71,37 +71,37 @@ client.on('messageCreate', async message => {
 })
 
 const status = queue =>
-  `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
-    queue.repeatMode ? (queue.repeatMode === 2 ? 'All Queue' : 'This Song') : 'Off'
+  `Volume: \`${queue.volume = 100}%\` | Filter: \`${queue.filters.names.join(', ') || 'Off'}\` | Loop: \`${
+    queue.repeatMode ? (queue.repeatMode === 2 ? 'Lista completa!' : 'Essa música') : 'Off'
   }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 client.distube
   .on('playSong', (queue, song) =>
     queue.textChannel.send(
-      `${client.emotes.play} | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${
+      `${client.emotes.play} | Playing \`${song.name}\` - \`${song.formattedDuration}\`\nPedida por: ${
         song.user
       }\n${status(queue)}`
     )
   )
   .on('addSong', (queue, song) =>
     queue.textChannel.send(
-      `${client.emotes.success} | Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
+      `${client.emotes.success} | Adicionado ${song.name} - \`${song.formattedDuration}\` à fila por ${song.user}`
     )
   )
   .on('addList', (queue, playlist) =>
     queue.textChannel.send(
-      `${client.emotes.success} | Added \`${playlist.name}\` playlist (${
+      `${client.emotes.success} | Adicionado as músicas da\`${playlist.name}\` (${
         playlist.songs.length
-      } songs) to queue\n${status(queue)}`
+      } songs) à fila\n${status(queue)}`
     )
   )
   .on('error', (channel, e) => {
-    if (channel) channel.send(`${client.emotes.error} | An error encountered: ${e.toString().slice(0, 1974)}`)
+    if (channel) channel.send(`${client.emotes.error} | Um erro foi encontrado: ${e.toString().slice(0, 1974)}`)
     else console.error(e)
   })
-  .on('empty', channel => channel.send('Voice channel is empty! Leaving the channel...'))
+  .on('empty', channel => channel.send('Canal de voz está vazio! Deixando o canal...'))
   .on('searchNoResult', (message, query) =>
-    message.channel.send(`${client.emotes.error} | No result found for \`${query}\`!`)
+    message.channel.send(`${client.emotes.error} | Nenhum resultado encontrado para \`${query}\`!`)
   )
-  .on('finish', queue => queue.textChannel.send('Finished!'))
+  .on('finish', queue => queue.textChannel.send('Acabou!'))
 
   client.login(config.token);

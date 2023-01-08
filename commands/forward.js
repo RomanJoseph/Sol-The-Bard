@@ -3,13 +3,13 @@ module.exports = {
   inVoiceChannel: true,
   run: async (client, message, args) => {
     const queue = client.distube.getQueue(message)
-    if (!queue) return message.channel.send(`${client.emotes.error} | There is nothing in the queue right now!`)
+    if (!queue) return message.channel.send(`${client.emotes.error} | Não tem nada na fila!`)
     if (!args[0]) {
-      return message.channel.send(`${client.emotes.error} | Please provide time (in seconds) to go forward!`)
+      return message.channel.send(`${client.emotes.error} | Por favor, insira o tempo (em segundos) para avançar na música`)
     }
     const time = Number(args[0])
-    if (isNaN(time)) return message.channel.send(`${client.emotes.error} | Please enter a valid number!`)
+    if (isNaN(time)) return message.channel.send(`${client.emotes.error} | Por favor insira um número válido`)
     queue.seek((queue.currentTime + time))
-    message.channel.send(`Forwarded the song for ${time}!`)
+    message.channel.send(`A música foi avançada em ${time} segundos!`)
   }
 }
