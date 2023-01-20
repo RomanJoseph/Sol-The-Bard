@@ -1,6 +1,7 @@
 const { DisTube } = require('distube');
 const Discord = require('discord.js');
 const { GatewayIntentBits } = require('discord.js');
+require('dotenv').config()
 
 const client = new Discord.Client({
   intents: [
@@ -104,4 +105,4 @@ client.distube
   )
   .on('finish', queue => queue.textChannel.send('Acabou!'))
 
-  client.login(config.token);
+  client.login(process.env.TOKEN);
